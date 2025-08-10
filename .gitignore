@@ -1,0 +1,4 @@
+# Verilator produced files
+**/obj_dir/
+test_report_*.txt
+
