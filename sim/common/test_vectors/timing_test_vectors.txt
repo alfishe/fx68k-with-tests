@@ -1,0 +1,160 @@
+# Timing Test Vectors for fx68k
+# Format: instruction,operands,expected_cycles,actual_cycles,tolerance,notes
+
+# Basic instruction timing tests
+MOVE.B D0,D1,,4,4,0,register_to_register_move
+MOVE.W D0,D1,,4,4,0,word_register_move
+MOVE.L D0,D1,,4,4,0,long_register_move
+MOVE.B #0x12,D0,,8,8,0,immediate_to_register
+MOVE.W #0x1234,D0,,8,8,0,immediate_word_to_register
+MOVE.L #0x12345678,D0,,12,12,0,immediate_long_to_register
+
+# Memory access timing tests
+MOVE.B (A0),D0,,8,8,0,memory_to_register_byte
+MOVE.W (A0),D0,,8,8,0,memory_to_register_word
+MOVE.L (A0),D0,,12,12,0,memory_to_register_long
+MOVE.B D0,(A0),,8,8,0,register_to_memory_byte
+MOVE.W D0,(A0),,8,8,0,register_to_memory_word
+MOVE.L D0,(A0),,12,12,0,register_to_memory_long
+
+# Addressing mode timing tests
+MOVE.B (A0)+,D0,,8,8,0,post_increment_byte
+MOVE.W (A0)+,D0,,8,8,0,post_increment_word
+MOVE.L (A0)+,D0,,12,12,0,post_increment_long
+MOVE.B -(A0),D0,,8,8,0,pre_decrement_byte
+MOVE.W -(A0),D0,,8,8,0,pre_decrement_word
+MOVE.L -(A0),D0,,12,12,0,pre_decrement_long
+
+# Arithmetic instruction timing tests
+ADD.B D0,D1,,4,4,0,add_byte
+ADD.W D0,D1,,4,4,0,add_word
+ADD.L D0,D1,,6,6,0,add_long
+SUB.B D0,D1,,4,4,0,subtract_byte
+SUB.W D0,D1,,4,4,0,subtract_word
+SUB.L D0,D1,,6,6,0,subtract_long
+MULU.W D0,D1,,38,38,2,multiply_unsigned
+MULS.W D0,D1,,38,38,2,multiply_signed
+DIVU.W D0,D1,,90,90,5,divide_unsigned
+DIVS.W D0,D1,,90,90,5,divide_signed
+
+# Logical instruction timing tests
+AND.B D0,D1,,4,4,0,and_byte
+AND.W D0,D1,,4,4,0,and_word
+AND.L D0,D1,,6,6,0,and_long
+OR.B D0,D1,,4,4,0,or_byte
+OR.W D0,D1,,4,4,0,or_word
+OR.L D0,D1,,6,6,0,or_long
+EOR.B D0,D1,,4,4,0,eor_byte
+EOR.W D0,D1,,4,4,0,eor_word
+EOR.L D0,D1,,6,6,0,eor_long
+
+# Shift and rotate timing tests
+ASL.B D0,D1,,6,6,0,arithmetic_shift_left_byte
+ASL.W D0,D1,,6,6,0,arithmetic_shift_left_word
+ASL.L D0,D1,,8,8,0,arithmetic_shift_left_long
+ASR.B D0,D1,,6,6,0,arithmetic_shift_right_byte
+ASR.W D0,D1,,6,6,0,arithmetic_shift_right_word
+ASR.L D0,D1,,8,8,0,arithmetic_shift_right_long
+ROL.B D0,D1,,6,6,0,rotate_left_byte
+ROL.W D0,D1,,6,6,0,rotate_left_word
+ROL.L D0,D1,,8,8,0,rotate_left_long
+ROR.B D0,D1,,6,6,0,rotate_right_byte
+ROR.W D0,D1,,6,6,0,rotate_right_word
+ROR.L D0,D1,,8,8,0,rotate_right_long
+
+# Branch instruction timing tests
+BRA.S +4,,10,10,0,short_branch
+BRA.W +4,,10,10,0,word_branch
+BRA.L +4,,12,12,0,long_branch
+BEQ.S +4,,8,8,0,conditional_branch_taken
+BEQ.S +4,,10,10,0,conditional_branch_not_taken
+BNE.S +4,,8,8,0,conditional_branch_taken
+BNE.S +4,,10,10,0,conditional_branch_not_taken
+BGT.S +4,,8,8,0,conditional_branch_taken
+BGT.S +4,,10,10,0,conditional_branch_not_taken
+
+# Subroutine instruction timing tests
+JSR (A0),,18,18,0,jump_to_subroutine
+RTS,,16,16,0,return_from_subroutine
+BSR.S +4,,18,18,0,branch_to_subroutine
+JMP (A0),,8,8,0,jump_absolute
+
+# Compare and test timing tests
+CMP.B D0,D1,,4,4,0,compare_byte
+CMP.W D0,D1,,4,4,0,compare_word
+CMP.L D0,D1,,6,6,0,compare_long
+TST.B D0,,4,4,0,test_byte
+TST.W D0,,4,4,0,test_word
+TST.L D0,,4,4,0,test_long
+
+# Stack operation timing tests
+MOVE.L D0,-(A7),,8,8,0,push_long
+MOVE.L (A7)+,D0,,12,12,0,pop_long
+MOVE.W D0,-(A7),,8,8,0,push_word
+MOVE.W (A7)+,D0,,12,12,0,pop_word
+
+# Clock cycle accuracy tests
+NOP,,4,4,0,no_operation
+NOP,,4,4,0,no_operation_repeat
+NOP,,4,4,0,no_operation_repeat2
+NOP,,4,4,0,no_operation_repeat3
+NOP,,4,4,0,no_operation_repeat4
+
+# Performance benchmark tests
+LOOP_10,MOVE.B D0,D1,40,40,0,ten_byte_moves
+LOOP_100,MOVE.B D0,D1,400,400,2,hundred_byte_moves
+LOOP_1000,MOVE.B D0,D1,4000,4000,20,thousand_byte_moves
+LOOP_10K,MOVE.B D0,D1,40000,40000,200,ten_thousand_byte_moves
+
+# Mixed instruction timing tests
+MIXED_1,MOVE.B D0,D1; ADD.B D0,D1; SUB.B D0,D1,12,12,0,mixed_byte_operations
+MIXED_2,MOVE.W D0,D1; ADD.W D0,D1; SUB.W D0,D1,12,12,0,mixed_word_operations
+MIXED_3,MOVE.L D0,D1; ADD.L D0,D1; SUB.L D0,D1,18,18,0,mixed_long_operations
+
+# Power consumption simulation tests
+LOW_POWER,NOP; NOP; NOP; NOP,16,16,0,low_power_sequence
+MEDIUM_POWER,MOVE.B D0,D1; ADD.B D0,D1; SUB.B D0,D1,12,12,0,medium_power_sequence
+HIGH_POWER,MULU.W D0,D1; DIVU.W D0,D1; MULS.W D0,D1,266,266,10,high_power_sequence
+
+# Cache behavior timing tests
+CACHE_HIT,MOVE.B D0,D1,4,4,0,cache_hit_byte
+CACHE_MISS,MOVE.B D0,D1,8,8,0,cache_miss_byte
+CACHE_WRITE,MOVE.B D0,(A0),8,8,0,cache_write_byte
+CACHE_READ,MOVE.B (A0),D0,8,8,0,cache_read_byte
+
+# Bus cycle timing tests
+BUS_READ,MOVE.B (A0),D0,8,8,0,bus_read_cycle
+BUS_WRITE,MOVE.B D0,(A0),8,8,0,bus_write_cycle
+BUS_WAIT,MOVE.B (A0),D0,12,12,0,bus_wait_cycle
+BUS_ERROR,MOVE.B (A0),D0,50,50,5,bus_error_cycle
+
+# Interrupt timing tests
+INT_LEVEL_1,INT 1,20,20,0,level_1_interrupt
+INT_LEVEL_2,INT 2,20,20,0,level_2_interrupt
+INT_LEVEL_3,INT 3,20,20,0,level_3_interrupt
+INT_LEVEL_4,INT 4,20,20,0,level_4_interrupt
+INT_LEVEL_5,INT 5,20,20,0,level_5_interrupt
+INT_LEVEL_6,INT 6,20,20,0,level_6_interrupt
+INT_LEVEL_7,INT 7,20,20,0,level_7_interrupt
+
+# Exception timing tests
+EXCEPTION_BUS,BUS_ERROR,50,50,5,bus_error_exception
+EXCEPTION_ADDR,ADDR_ERROR,50,50,5,address_error_exception
+EXCEPTION_ILLEGAL,ILLEGAL_INST,50,50,5,illegal_instruction_exception
+EXCEPTION_ZERO,ZERO_DIVIDE,50,50,5,zero_divide_exception
+
+# Memory access pattern timing tests
+SEQUENTIAL_READ,MOVE.B (A0)+,D0; MOVE.B (A0)+,D1; MOVE.B (A0)+,D2,24,24,0,sequential_read_access
+SEQUENTIAL_WRITE,MOVE.B D0,(A0)+; MOVE.B D1,(A0)+; MOVE.B D2,(A0)+,24,24,0,sequential_write_access
+RANDOM_ACCESS,MOVE.B (A0),D0; MOVE.B (A1),D1; MOVE.B (A2),D2,24,24,0,random_access_pattern
+
+# Pipeline timing tests
+PIPELINE_1,MOVE.B D0,D1; MOVE.B D1,D2; MOVE.B D2,D3,12,12,0,pipeline_three_stage
+PIPELINE_2,ADD.B D0,D1; ADD.B D1,D2; ADD.B D2,D3,12,12,0,pipeline_arithmetic
+PIPELINE_3,MOVE.B (A0),D0; MOVE.B D0,(A1); MOVE.B (A1),D1,24,24,0,pipeline_memory
+
+# Clock frequency scaling tests
+FREQ_50MHz,MOVE.B D0,D1,4,4,0,fifty_megahertz_operation
+FREQ_100MHz,MOVE.B D0,D1,4,4,0,hundred_megahertz_operation
+FREQ_150MHz,MOVE.B D0,D1,4,4,0,hundred_fifty_megahertz_operation
+FREQ_200MHz,MOVE.B D0,D1,4,4,0,two_hundred_megahertz_operation

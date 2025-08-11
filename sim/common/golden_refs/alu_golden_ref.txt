@@ -1,0 +1,93 @@
+# ALU Golden Reference Results for fx68k
+# Format: test_name,expected_result,expected_ccr,notes
+
+# ADD operations
+ADD_W_D0_D1,0x68AC,0x00000,ADD word D0 to D1
+ADD_W_IMM,0x2468,0x00000,ADD immediate to D0
+ADD_W_MEM,0x68AC,0x00000,ADD memory to D0
+ADD_L_D0_D1,0x99999999,0x00000,ADD long D0 to D1
+ADD_L_IMM,0x2468ACF0,0x00000,ADD immediate to D0
+ADD_L_MEM,0x99999999,0x00000,ADD memory to D0
+
+# SUB operations
+SUB_W_D0_D1,0x4444,0x00000,SUB word D0 from D1
+SUB_W_IMM,0x0000,0x00010,SUB immediate from D0
+SUB_W_MEM,0x4444,0x00000,SUB memory from D0
+SUB_L_D0_D1,0x7531DB9A,0x00000,SUB long D0 from D1
+SUB_L_IMM,0x00000000,0x00010,SUB immediate from D0
+SUB_L_MEM,0x7531DB9A,0x00000,SUB memory from D0
+
+# AND operations
+AND_W_D0_D1,0x1230,0x00000,AND word D0 with D1
+AND_W_IMM,0x0204,0x00000,AND immediate with D0
+AND_W_MEM,0x1230,0x00000,AND memory with D0
+AND_L_D0_D1,0x12345678,0x00000,AND long D0 with D1
+AND_L_IMM,0x02040608,0x00000,AND immediate with D0
+AND_L_MEM,0x12345678,0x00000,AND memory with D0
+
+# OR operations
+OR_W_D0_D1,0x577C,0x00000,OR word D0 with D1
+OR_W_IMM,0x1F3F,0x00000,OR immediate with D0
+OR_W_MEM,0x577C,0x00000,OR memory with D0
+OR_L_D0_D1,0xFFFFFFFF,0x00001,OR long D0 with D1
+OR_L_IMM,0x1F3F5F7F,0x00000,OR immediate with D0
+OR_L_MEM,0xFFFFFFFF,0x00001,OR memory with D0
+
+# EOR operations
+EOR_W_D0_D1,0x454C,0x00000,EOR word D0 with D1
+EOR_W_IMM,0x1D3B,0x00000,EOR immediate with D0
+EOR_W_MEM,0x454C,0x00000,EOR memory with D0
+EOR_L_D0_D1,0xFFFFFFFF,0x00001,EOR long D0 with D1
+EOR_L_IMM,0x1D3B5D7F,0x00000,EOR immediate with D0
+EOR_L_MEM,0xFFFFFFFF,0x00001,EOR memory with D0
+
+# Shift operations
+ASL_W_1,0x0002,0x00000,Arithmetic shift left by 1
+ASL_W_REG,0x0002,0x00000,Arithmetic shift left by register
+ASL_W_MEM,0x0002,0x00000,Arithmetic shift left memory
+ASR_W_1,0xC000,0x00001,Arithmetic shift right by 1
+ASR_W_REG,0xC000,0x00001,Arithmetic shift right by register
+ASR_W_MEM,0xC000,0x00001,Arithmetic shift right memory
+
+# Logical shifts
+LSL_W_1,0x0002,0x00000,Logical shift left by 1
+LSL_W_REG,0x0002,0x00000,Logical shift left by register
+LSL_W_MEM,0x0002,0x00000,Logical shift left memory
+LSR_W_1,0x4000,0x00000,Logical shift right by 1
+LSR_W_REG,0x4000,0x00000,Logical shift right by register
+LSR_W_MEM,0x4000,0x00000,Logical shift right memory
+
+# Rotate operations
+ROL_W_1,0x0002,0x00000,Rotate left by 1
+ROL_W_REG,0x0002,0x00000,Rotate left by register
+ROL_W_MEM,0x0002,0x00000,Rotate left memory
+ROR_W_1,0xC000,0x00001,Rotate right by 1
+ROR_W_REG,0xC000,0x00001,Rotate right by register
+ROR_W_MEM,0xC000,0x00001,Rotate right memory
+
+# Rotate with extend
+ROXL_W_1,0x0002,0x00000,Rotate left with extend by 1
+ROXL_W_REG,0x0002,0x00000,Rotate left with extend by register
+ROXL_W_MEM,0x0002,0x00000,Rotate left with extend memory
+ROXR_W_1,0xC000,0x00001,Rotate right with extend by 1
+ROXR_W_REG,0xC000,0x00001,Rotate right with extend by register
+ROXR_W_MEM,0xC000,0x00001,Rotate right with extend memory
+
+# BCD operations
+ABCD_D0_D1,0x690C,0x00000,BCD add D0 to D1
+ABCD_IMM,0x0000,0x00011,BCD add immediate
+ABCD_MEM,0x690C,0x00000,BCD add memory
+SBCD_D0_D1,0x4444,0x00000,BCD subtract D0 from D1
+SBCD_IMM,0x9999,0x00011,BCD subtract immediate
+SBCD_MEM,0x4444,0x00000,BCD subtract memory
+
+# Other operations
+NEG_W,0xEDCC,0x00001,Negate word
+NEG_L,0xEDCCBA98,0x00001,Negate long
+CLR_W,0x0000,0x00010,Clear word
+CLR_L,0x00000000,0x00010,Clear long
+EXT_W,0x0012,0x00000,Extend byte to word
+EXT_L,0x00000012,0x00000,Extend word to long
+SWAP,0x56781234,0x00000,Swap words
+NOT_W,0xEDCC,0x00001,NOT word
+NOT_L,0xEDCCBA98,0x00001,NOT long

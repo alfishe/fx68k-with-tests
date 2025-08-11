@@ -1,0 +1,131 @@
+# Interrupt Test Vectors for fx68k
+# Format: interrupt_type,level,vector_address,expected_handler,cycles,notes
+
+# Level 1-7 interrupt tests
+INT,1,0x64,int_handler_1,20,level_1_interrupt
+INT,2,0x68,int_handler_2,20,level_2_interrupt
+INT,3,0x6C,int_handler_3,20,level_3_interrupt
+INT,4,0x70,int_handler_4,20,level_4_interrupt
+INT,5,0x74,int_handler_5,20,level_5_interrupt
+INT,6,0x78,int_handler_6,20,level_6_interrupt
+INT,7,0x7C,int_handler_7,20,level_7_interrupt
+
+# Exception vector tests
+EXCEPTION,bus_error,0x8,bus_error_handler,50,bus_error_exception
+EXCEPTION,address_error,0xC,address_error_handler,50,address_error_exception
+EXCEPTION,illegal_instruction,0x10,illegal_instruction_handler,50,illegal_instruction_exception
+EXCEPTION,zero_divide,0x14,zero_divide_handler,50,zero_divide_exception
+EXCEPTION,chk,0x18,chk_handler,50,chk_exception
+EXCEPTION,trapv,0x1C,trapv_handler,50,trapv_exception
+EXCEPTION,privilege_violation,0x20,privilege_violation_handler,50,privilege_violation_exception
+EXCEPTION,trace,0x24,trace_handler,50,trace_exception
+
+# Interrupt priority tests
+PRIORITY,1,0x64,int_handler_1,20,highest_priority
+PRIORITY,2,0x68,int_handler_2,20,high_priority
+PRIORITY,3,0x6C,int_handler_3,20,medium_high_priority
+PRIORITY,4,0x70,int_handler_4,20,medium_priority
+PRIORITY,5,0x74,int_handler_5,20,medium_low_priority
+PRIORITY,6,0x78,int_handler_6,20,low_priority
+PRIORITY,7,0x7C,int_handler_7,20,lowest_priority
+
+# Nested interrupt tests
+NESTED,1-3,0x64-0x6C,int_handler_1,60,nested_level_1_3
+NESTED,2-4,0x68-0x70,int_handler_2,60,nested_level_2_4
+NESTED,3-5,0x6C-0x74,int_handler_3,60,nested_level_3_5
+NESTED,4-6,0x70-0x78,int_handler_4,60,nested_level_4_6
+NESTED,5-7,0x74-0x7C,int_handler_5,60,nested_level_5_7
+
+# Return from interrupt tests
+RTE,1,0x64,int_handler_1,20,return_from_level_1
+RTE,2,0x68,int_handler_2,20,return_from_level_2
+RTE,3,0x6C,int_handler_3,20,return_from_level_3
+RTE,4,0x70,int_handler_4,20,return_from_level_4
+RTE,5,0x74,int_handler_5,20,return_from_level_5
+RTE,6,0x78,int_handler_6,20,return_from_level_6
+RTE,7,0x7C,int_handler_7,20,return_from_level_7
+
+# Exception return tests
+RTE,bus_error,0x8,bus_error_handler,50,return_from_bus_error
+RTE,address_error,0xC,address_error_handler,50,return_from_address_error
+RTE,illegal_instruction,0x10,illegal_instruction_handler,50,return_from_illegal_instruction
+RTE,zero_divide,0x14,zero_divide_handler,50,return_from_zero_divide
+RTE,chk,0x18,chk_handler,50,return_from_chk
+RTE,trapv,0x1C,trapv_handler,50,return_from_trapv
+RTE,privilege_violation,0x20,privilege_violation_handler,50,return_from_privilege_violation
+RTE,trace,0x24,trace_handler,50,return_from_trace
+
+# Interrupt masking tests
+MASK,1,0x64,int_handler_1,20,level_1_unmasked
+MASK,2,0x68,int_handler_2,20,level_2_unmasked
+MASK,3,0x6C,int_handler_3,20,level_3_unmasked
+MASK,4,0x70,int_handler_4,20,level_4_unmasked
+MASK,5,0x74,int_handler_5,20,level_5_unmasked
+MASK,6,0x78,int_handler_6,20,level_6_unmasked
+MASK,7,0x7C,int_handler_7,20,level_7_unmasked
+
+# Interrupt acknowledgment tests
+ACK,1,0x64,int_handler_1,20,acknowledge_level_1
+ACK,2,0x68,int_handler_2,20,acknowledge_level_2
+ACK,3,0x6C,int_handler_3,20,acknowledge_level_3
+ACK,4,0x70,int_handler_4,20,acknowledge_level_4
+ACK,5,0x74,int_handler_5,20,acknowledge_level_5
+ACK,6,0x78,int_handler_6,20,acknowledge_level_6
+ACK,7,0x7C,int_handler_7,20,acknowledge_level_7
+
+# Interrupt vector table validation
+VECTOR,1,0x64,int_handler_1,4,validate_level_1_vector
+VECTOR,2,0x68,int_handler_2,4,validate_level_2_vector
+VECTOR,3,0x6C,int_handler_3,4,validate_level_3_vector
+VECTOR,4,0x70,int_handler_4,4,validate_level_4_vector
+VECTOR,5,0x74,int_handler_5,4,validate_level_5_vector
+VECTOR,6,0x78,int_handler_6,4,validate_level_6_vector
+VECTOR,7,0x7C,int_handler_7,4,validate_level_7_vector
+
+# Exception vector table validation
+VECTOR,bus_error,0x8,bus_error_handler,4,validate_bus_error_vector
+VECTOR,address_error,0xC,address_error_handler,4,validate_address_error_vector
+VECTOR,illegal_instruction,0x10,illegal_instruction_handler,4,validate_illegal_instruction_vector
+VECTOR,zero_divide,0x14,zero_divide_handler,4,validate_zero_divide_vector
+VECTOR,chk,0x18,chk_handler,4,validate_chk_vector
+VECTOR,trapv,0x1C,trapv_handler,4,validate_trapv_vector
+VECTOR,privilege_violation,0x20,privilege_violation_handler,4,validate_privilege_violation_vector
+VECTOR,trace,0x24,trace_handler,4,validate_trace_vector
+
+# Interrupt timing tests
+TIMING,1,0x64,int_handler_1,20,level_1_timing
+TIMING,2,0x68,int_handler_2,20,level_2_timing
+TIMING,3,0x6C,int_handler_3,20,level_3_timing
+TIMING,4,0x70,int_handler_4,20,level_4_timing
+TIMING,5,0x74,int_handler_5,20,level_5_timing
+TIMING,6,0x78,int_handler_6,20,level_6_timing
+TIMING,7,0x7C,int_handler_7,20,level_7_timing
+
+# Exception timing tests
+TIMING,bus_error,0x8,bus_error_handler,50,bus_error_timing
+TIMING,address_error,0xC,address_error_handler,50,address_error_timing
+TIMING,illegal_instruction,0x10,illegal_instruction_handler,50,illegal_instruction_timing
+TIMING,zero_divide,0x14,zero_divide_handler,50,zero_divide_timing
+TIMING,chk,0x18,chk_handler,50,chk_timing
+TIMING,trapv,0x1C,trapv_handler,50,trapv_timing
+TIMING,privilege_violation,0x20,privilege_violation_handler,50,privilege_violation_timing
+TIMING,trace,0x24,trace_handler,50,trace_timing
+
+# Interrupt state preservation tests
+STATE,1,0x64,int_handler_1,20,preserve_level_1_state
+STATE,2,0x68,int_handler_2,20,preserve_level_2_state
+STATE,3,0x6C,int_handler_3,20,preserve_level_3_state
+STATE,4,0x70,int_handler_4,20,preserve_level_4_state
+STATE,5,0x74,int_handler_5,20,preserve_level_5_state
+STATE,6,0x78,int_handler_6,20,preserve_level_6_state
+STATE,7,0x7C,int_handler_7,20,preserve_level_7_state
+
+# Exception state preservation tests
+STATE,bus_error,0x8,bus_error_handler,50,preserve_bus_error_state
+STATE,address_error,0xC,address_error_handler,50,preserve_address_error_state
+STATE,illegal_instruction,0x10,illegal_instruction_handler,50,preserve_illegal_instruction_state
+STATE,zero_divide,0x14,zero_divide_handler,50,preserve_zero_divide_state
+STATE,chk,0x18,chk_handler,50,preserve_chk_state
+STATE,trapv,0x1C,trapv_handler,50,preserve_trapv_state
+STATE,privilege_violation,0x20,privilege_violation_handler,50,preserve_privilege_violation_state
+STATE,trace,0x24,trace_handler,50,preserve_trace_state
